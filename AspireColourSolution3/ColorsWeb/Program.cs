@@ -23,7 +23,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.MapStaticAssets();
 
 app.UseRouting();
 
@@ -31,7 +31,8 @@ app.UseAuthorization();
 
 app.MapDefaultEndpoints();
 
-app.MapRazorPages();
+app.MapRazorPages()
+    .WithStaticAssets();
 
 app.MapGet("/api/getcolor", async (IHttpClientFactory clientFactory) => {
     var client = clientFactory.CreateClient();

@@ -19,15 +19,17 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.MapStaticAssets();
 
 app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapRazorPages();
+app.MapRazorPages()
+    .WithStaticAssets();
 
-app.MapGet("/api/getcolor", async (IHttpClientFactory clientFactory) => {
+app.MapGet("/api/getcolor", async (IHttpClientFactory clientFactory) =>
+{
     var client = clientFactory.CreateClient();
     var jsonString = await client.GetStringAsync(colorsAPIUrl); // Replace with your actual URL
     var colorObject = JsonSerializer.Deserialize<object>(jsonString);
